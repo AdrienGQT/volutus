@@ -6,6 +6,14 @@ Volutus is a loghtweight JavaScript library designed to create smooth, infinite 
 
 <br>
 
+## Content
+
+- [Installation](#installation)
+- [Setup](#setup)
+- [Settings](#settings)
+- [Properties](#properties)
+- [Default CSS](#default-css)
+
 ## Installation
 
 Using a package manager:
@@ -21,7 +29,7 @@ import Volutus from 'volutus'
 
 ## Setup
 
-### Minimal
+### Basic
 
 ```js
 const volutus = new Volutus({
@@ -31,12 +39,12 @@ const volutus = new Volutus({
 })
 ```
 
-### Custom example
+### Custom
 
 ```js
   const volutus = new Volutus({
     // Direction
-    direction: "row", // or "row"
+    direction: "column", // or "row"
     // HTML Elements
     container : container,
     items : items,
@@ -48,10 +56,10 @@ const volutus = new Volutus({
     supportButtons : true,
     // Tweaks
     gap: 12,
-    scrollStrength: 0.2,
-    dragStrength: 1.5,
+    scrollStrength: 0.4,
+    dragStrength: 1.3,
     snapStrength: 0.02,
-    lerpFactor: 0.05
+    lerpFactor: 0.09
   });
 ```
 
@@ -90,3 +98,11 @@ const volutus = new Volutus({
 | `targetScrollY`           | `number`        | The scroll level on Y axis the slider is aiming to. Based on the user inputs.                             |
 | `scrollY`                 | `number`        | The current scroll level on Y axis.                                                                       |
 | `isColumn`                | `boolean`       | Direction indicator. Returns `true` if the direction is set `column`.                                     |
+
+## Default CSS
+
+Volutus applies three basic css classes on the slider elements: 
+
+- `.volutusContainer` on the container.
+- `.volutusItem` on each items.
+- `.volutusItemSelected` on the currently selected item.
