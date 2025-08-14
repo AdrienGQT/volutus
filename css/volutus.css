@@ -1,20 +1,10 @@
 /* Default Volutus style */
 
 .volutusContainer{
-  background-color: red;
   position: relative;
-  height: 100px;
-  width: 100px;
   overflow: hidden;
 }
 
 .volutusItem{
   position: absolute;
-  background-color: blue;
-  height: 50%;
-  width: 50%;
-}
-
-.volutusItemSelected{
-  background-color: green !important; 
 }
