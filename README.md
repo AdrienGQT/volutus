@@ -1,5 +1,7 @@
 # Volutus
 
+<br>
+
 ## Introduction
 
 Volutus is a loghtweight JavaScript library designed to create smooth, infinite sliders with minimal setup. it provides seamless scrolling experiences and supports many gestures : mouse wheel navigation, touch/drag interactions and button controls.
@@ -13,6 +15,8 @@ Volutus is a loghtweight JavaScript library designed to create smooth, infinite 
 - [Settings](#settings)
 - [Properties](#properties)
 - [Default CSS](#default-css)
+
+<br>
 
 ## Installation
 
@@ -98,6 +102,8 @@ const volutus = new Volutus({
 | `targetScrollY`           | `number`        | The scroll level on Y axis the slider is aiming to. Based on the user inputs.                             |
 | `scrollY`                 | `number`        | The current scroll level on Y axis.                                                                       |
 | `isColumn`                | `boolean`       | Direction indicator. Returns `true` if the direction is set `column`.                                     |
+
+<br>
 
 ## Default CSS
 
