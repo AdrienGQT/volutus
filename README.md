@@ -1,7 +1,5 @@
 # Volutus
 
-<br>
-
 ## Introduction
 
 Volutus is a loghtweight JavaScript library designed to create smooth, infinite sliders with minimal setup. it provides seamless scrolling experiences and supports many gestures : mouse wheel navigation, touch/drag interactions and button controls.
@@ -37,7 +35,7 @@ import Volutus from 'volutus'
 
 ```js
 const volutus = new Volutus({
-  direction : 'column', // or 'row'
+  direction : 'column',
   container: container,
   items: items
 })
@@ -48,7 +46,7 @@ const volutus = new Volutus({
 ```js
   const volutus = new Volutus({
     // Direction
-    direction: "column", // or "row"
+    direction: "row",
     // HTML Elements
     container : container,
     items : items,
@@ -107,7 +105,7 @@ const volutus = new Volutus({
 
 ## Default CSS
 
-Volutus applies three basic css classes on the slider elements: 
+Volutus applies three basic CSS classes on the slider elements: 
 
 - `.volutusContainer` on the container.
 - `.volutusItem` on each items.
