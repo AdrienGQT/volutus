@@ -2,9 +2,7 @@
 
 ## Introduction
 
-Volutus is a loghtweight JavaScript library designed to create smooth, infinite sliders with minimal setup. it provides seamless scrolling experiences and supports many gestures : mouse wheel navigation, touch/drag interactions and button controls.
-
-<br>
+Volutus is a lightweight JavaScript library designed to create smooth, infinite sliders with minimal setup. it provides seamless scrolling experiences and supports many gestures : mouse wheel navigation, touch/drag interactions and button controls.
 
 ## Content
 
@@ -13,8 +11,6 @@ Volutus is a loghtweight JavaScript library designed to create smooth, infinite 
 - [Settings](#settings)
 - [Properties](#properties)
 - [Default CSS](#default-css)
-
-<br>
 
 ## Installation
 
@@ -26,8 +22,6 @@ npm i volutus
 ```js
 import Volutus from 'volutus'
 ```
-
-<br>
 
 ## Setup
 
@@ -65,13 +59,11 @@ const volutus = new Volutus({
   });
 ```
 
-<br>
-
 ## Settings
 
 | Option                 | Type                       | Default                                            | Description                                                                                               |
 |------------------------|----------------------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `direction`            | `string`                   | `undefined`                                        | The direction of the scroll. Either 'column' or 'row'.                                                    |
+| `direction`            | `string`                   | `column`                                           | The direction of the scroll. Either 'column' or 'row'.                                                    |
 | `container`            | `HTMLElement`              | `undefined`                                        | The element that will be used as the scroll container.                                                    |
 | `items`                | `NodeList`                 | `undefined`                                        | A list that contains the elements that will be scrolled, usually `container`'s children.                  |
 | `previousButton`       | `HTMLElement`              | `undefined`                                        | The element that will be used as the previous item navigation button.                                     |
@@ -84,8 +76,6 @@ const volutus = new Volutus({
 | `supportScroll`        | `boolean`                  | `true`                                             | Wether or not to support mouse wheel navigation.                                                          |
 | `supportDrag`          | `boolean`                  | `true`                                             | Wether or not to support touch/drag interactions.                                                         |
 | `supportButtons`       | `boolean`                  | `true`                                             | Wether or not to support button controls.                                                                 |
-
-<br>
 
 ## Properties
 
@@ -101,8 +91,6 @@ const volutus = new Volutus({
 | `scrollY`                 | `number`        | The current scroll level on Y axis.                                                                       |
 | `isColumn`                | `boolean`       | Direction indicator. Returns `true` if the direction is set `column`.                                     |
 
-<br>
-
 ## Default CSS
 
 Volutus applies three basic CSS classes on the slider elements: 
@@ -110,3 +98,46 @@ Volutus applies three basic CSS classes on the slider elements:
 - `.volutusContainer` on the container.
 - `.volutusItem` on each items.
 - `.volutusItemSelected` on the currently selected item.
+
+This classes contain the following properties:
+
+```css
+.volutusContainer{
+  position: relative;
+  overflow: hidden;
+}
+
+.volutusItem{
+  position: absolute;
+}
+
+.volutusItemSelected{
+}
+```
+
+## Custom CSS
+
+You can add you own properties to the slider elements using the default Volutus classes.
+
+```css
+.volutusContainer{
+  background-color: #fefefe;
+  padding: 0 12px;
+  width: 90%;
+  height: 100%;
+}
+
+.volutusItem{
+  background-color: #dfdfdf;
+  width: calc(100% - (2 * 12px));
+  height: 75%;
+  border-radius: 8px;
+  border: 1px solid #dfdfdf;
+  transition: background-color 0.1s, border 0.3s;
+}
+
+.volutusItemSelected{
+  background-color: #cdcdcd;
+  border: 1px solid #3cd08d;
+}
+```

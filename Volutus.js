@@ -16,7 +16,7 @@ export class Volutus {
     instance = this;
 
     // Parameters
-    this.direction = null;
+    this.direction = "column";
 
     this.container = null;
     this.items = null;
