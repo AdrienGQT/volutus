@@ -11,9 +11,9 @@ export class SnapManager {
   };
 
   computeSnap = () => {
-    const blockSize = this.volutus.isColumn
-      ? this.volutus.blockSizes.height
-      : this.volutus.blockSizes.width;
+    const blockSide = this.volutus.isColumn ? "height" : "width";
+    const itemSize = this.volutus.itemsSizes[0][blockSide];
+    const blockSize = itemSize + this.volutus.gap;
 
     this.currentIndex = this.volutus.currentIndex;
 

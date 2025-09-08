@@ -43,7 +43,7 @@ export class Volutus {
 
     this.itemQuantity = this.items.length;
 
-    this.itemSizes = {};
+    this.itemsSizes = {};
     this.blockSizes = {};
     this.containerSizes = {};
     this.sliderSizes = {};
@@ -97,7 +97,7 @@ export class Volutus {
     this.applyRequiredStyles();
     this.instantiateManagers();
     this.getSizes();
-    this.calculateCenterOffset();
+    this.calculateBasePositions();
     this.updateItems();
     this.animate();
   };
@@ -125,52 +125,67 @@ export class Volutus {
   };
 
   getSizes = () => {
-    const { height, width } = this.items[0].getBoundingClientRect();
-    this.itemSizes = {
-      height,
-      width,
-    };
-    this.blockSizes = {
-      height: height + this.gap,
-      width: width + this.gap,
-    };
+    this.itemsSizes = [];
+    this.blockSizes = [];
+    this.itemsOffset = [];
     this.sliderSizes = {
-      height: (height + this.gap) * this.itemQuantity,
-      width: (width + this.gap) * this.itemQuantity,
+      width: 0,
+      height: 0,
     };
-  };
-
-  calculateCenterOffset = () => {
     const { height, width } = this.container.getBoundingClientRect();
     this.containerSizes = { height, width };
-    this.centerOffset = {
-      column: (height - this.itemSizes.height) / 2,
-      row: (width - this.itemSizes.width) / 2,
-    };
+
+    for (let i = 0; i < this.items.length; i++) {
+      const { height, width } = this.items[i].getBoundingClientRect();
+      this.itemsSizes.push({ width, height });
+
+      const blockWidth = width + this.gap;
+      const blockHeight = height + this.gap;
+      this.blockSizes.push({ width: blockWidth, height: blockHeight });
+
+      this.sliderSizes.width += blockWidth;
+      this.sliderSizes.height += blockHeight;
+
+      const offsetRow = (this.containerSizes.width - width) / 2;
+      const offsetColumn = (this.containerSizes.height - height) / 2;
+      this.itemsOffset.push({ row: offsetRow, column: offsetColumn });
+    }
+  };
+
+  calculateBasePositions = () => {
+    this.basePositions = [];
+    const offsetDirection = this.isColumn ? "column" : "row";
+    const blockSide = this.isColumn ? "height" : "width";
+
+    let currentPosition = this.itemsOffset[1][offsetDirection];
+
+    for (let i = 0; i < this.items.length; i++) {
+      this.basePositions.push(currentPosition);
+
+      currentPosition += this.blockSizes[i][blockSide];
+    }
   };
 
   updateItems = () => {
     const config = this.isColumn
       ? {
-          itemSize: this.itemSizes.height,
-          blockSize: this.blockSizes.height,
+          blockSide: "height",
           sliderSize: this.sliderSizes.height,
-          centerOffset: this.centerOffset.column,
           transformPrefix: "translateY(",
         }
       : {
-          itemSize: this.itemSizes.width,
-          blockSize: this.blockSizes.width,
+          blockSide: "width",
           sliderSize: this.sliderSizes.width,
-          centerOffset: this.centerOffset.row,
           transformPrefix: "translateX(",
         };
 
     for (let i = 0; i < this.items.length; i++) {
-      const basePosition = i * config.blockSize + config.centerOffset;
       let adjustedPosition =
-        -config.blockSize + (((basePosition - this.scrollY) * this.isColumn + (basePosition - this.scrollX) * !this.isColumn) % config.sliderSize);
-      if (adjustedPosition < -config.blockSize) {
+        -this.blockSizes[0][config.blockSide] +
+        ((this.basePositions[i] -
+          (this.isColumn ? this.scrollY : this.scrollX)) %
+          config.sliderSize);
+      if (adjustedPosition < -this.blockSizes[i][config.blockSide]) {
         adjustedPosition += config.sliderSize;
       }
 
@@ -192,8 +207,8 @@ export class Volutus {
 
   computeIndexes = () => {
     const itemSize = this.isColumn
-      ? this.itemSizes.height
-      : this.itemSizes.width;
+      ? this.itemsSizes[0].height
+      : this.itemsSizes[0].width;
 
     this.currentIndex = Math.round(((this.scrollY * this.isColumn) + (this.scrollX * !this.isColumn)) / (itemSize + this.gap)) + 1;
 
