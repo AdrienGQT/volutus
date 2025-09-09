@@ -27,6 +27,7 @@ export class Volutus {
     this.supportScroll = true;
     this.supportDrag = true;
     this.supportButtons = true;
+    this.allowSnap = true;
 
     this.gap = 12;
 
@@ -121,7 +122,7 @@ export class Volutus {
     if (this.supportScroll) this.scrollManager = new ScrollManager();
     if (this.supportDrag) this.dragManager = new DragManager();
     if (this.supportButtons) this.buttonsManager = new ButtonsManager();
-    this.snapManager = new SnapManager();
+    if (this.allowSnap) this.snapManager = new SnapManager();
   };
 
   getSizes = () => {
@@ -198,10 +199,15 @@ export class Volutus {
   animate = () => {
     this.scrollY += (this.targetScrollY - this.scrollY) * this.lerpFactor;
     this.scrollX += (this.targetScrollX - this.scrollX) * this.lerpFactor;
+
     this.updateItems();
+
     this.computeIndexes();
-    this.snapManager.snap();
+
+    if (this.snapManager) this.snapManager.snap();
+
     this.refreshStyle();
+
     requestAnimationFrame(this.animate);
   };
 
@@ -210,15 +216,25 @@ export class Volutus {
       ? this.itemsSizes[0].height
       : this.itemsSizes[0].width;
 
-    this.currentIndex = Math.round(((this.scrollY * this.isColumn) + (this.scrollX * !this.isColumn)) / (itemSize + this.gap)) + 1;
+    this.currentIndex =
+      Math.round(
+        (this.scrollY * this.isColumn + this.scrollX * !this.isColumn) /
+          (itemSize + this.gap)
+      ) + 1;
 
-    this.currentItemIndex = positiveModulo(this.currentIndex, this.itemQuantity);
+    this.currentItemIndex = positiveModulo(
+      this.currentIndex,
+      this.itemQuantity
+    );
     this.previousItemIndex = positiveModulo(
       this.currentIndex - 1,
       this.itemQuantity
     );
-    this.nextItemIndex = positiveModulo(this.currentIndex + 1, this.itemQuantity);
-    this.currentItem = this.items[this.currentItemIndex]
+    this.nextItemIndex = positiveModulo(
+      this.currentIndex + 1,
+      this.itemQuantity
+    );
+    this.currentItem = this.items[this.currentItemIndex];
   };
 
   refreshStyle = () => {

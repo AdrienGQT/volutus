@@ -76,6 +76,7 @@ const volutus = new Volutus({
 | `supportScroll`        | `boolean`                  | `true`                                             | Wether or not to support mouse wheel navigation.                                                          |
 | `supportDrag`          | `boolean`                  | `true`                                             | Wether or not to support touch/drag interactions.                                                         |
 | `supportButtons`       | `boolean`                  | `true`                                             | Wether or not to support button controls.                                                                 |
+| `allowSnap`            | `boolean`                  | `true`                                             | Wether or not the snap effect is active.                                                                  |
 
 ## Properties
 
