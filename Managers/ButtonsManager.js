@@ -24,17 +24,20 @@ export class ButtonsManager {
 
   previousItem = () => {
     if (this.volutus.isColumn) {
-      this.volutus.targetScrollY -= this.volutus.blockSizes.height;
+      this.volutus.targetScrollY -= this.volutus.blockSizes[0].height;
     } else {
-      this.volutus.targetScrollX -= this.volutus.blockSizes.width;
+      this.volutus.targetScrollX -= this.volutus.blockSizes[0].width;
+
     }
   };
 
   nextItem = () => {
     if (this.volutus.isColumn) {
-      this.volutus.targetScrollY += this.volutus.blockSizes.height;
+      this.volutus.targetScrollY += this.volutus.blockSizes[0].height;
+
     } else {
-      this.volutus.targetScrollX += this.volutus.blockSizes.width;
+      this.volutus.targetScrollX += this.volutus.blockSizes[0].width;
+
     }
   };
 }
